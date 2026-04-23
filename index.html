@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>if(sessionStorage.getItem('page-leaving'))document.documentElement.style.opacity='0'</script>
+  <title>Some Paintings I Painted</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="site-sticky-bar" id="site-sticky-bar">
+    <a href="index.html" class="site-sticky-bar__logo" id="site-sticky-logo" aria-label="Some Paintings I Painted">
+      <img src="images/logo/logo-1line.svg" alt="" class="site-sticky-bar__logo-img">
+    </a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="about.html" class="nav-link">ABOUT ME</a>
+      <a href="mailto:hello@example.com" class="nav-link">SAY HI</a>
+    </nav>
+  </div>
+
+  <header class="site-header">
+    <h1 class="site-title">
+      <picture>
+        <source media="(min-width: 1024px)" srcset="images/logo/logo-1line.svg">
+        <img src="images/logo/logo-2lines.svg" alt="Some Paintings I Painted" class="site-title__logo">
+      </picture>
+    </h1>
+  </header>
+
+  <div class="grid-filter" id="grid-filter">
+    <div class="grid-filter__bar">
+      <span class="grid-filter__label">VIEW:</span>
+      <span class="grid-filter__active-label" id="filter-active-label">ALL</span>
+      <button class="grid-filter__btn" id="filter-toggle" aria-expanded="false" aria-label="Filter paintings">
+        <span class="grid-filter__icon-down" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="grid-filter__icon-up" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 12.5L10 7.5L15 12.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="grid-filter__icon-clear" aria-hidden="true">
+          <img src="images/icons/x.svg" alt="" width="20" height="20">
+        </span>
+      </button>
+    </div>
+    <div class="grid-filter__options" id="filter-options" aria-hidden="true">
+      <div class="grid-filter__options-inner">
+        <button class="grid-filter__option is-active" data-theme="all">ALL</button>
+        <button class="grid-filter__option" data-theme="flowers">FLOWERS</button>
+        <button class="grid-filter__option" data-theme="animals">ANIMALS</button>
+        <button class="grid-filter__option" data-theme="food">FOOD</button>
+        <button class="grid-filter__option" data-theme="people">PEOPLE</button>
+        <button class="grid-filter__option" data-theme="structures">STRUCTURES</button>
+        <button class="grid-filter__option" data-theme="water">WATER</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="grid" id="grid" aria-label="Paintings"></main>
+
+  <div class="cursor" id="cursor" aria-hidden="true">
+    <span class="cursor__circle">VIEW</span>
+  </div>
+
+  <script src="paintings.js"></script>
+  <script>
+    const grid = document.getElementById('grid');
+
+    paintings.forEach((painting) => {
+      const item = document.createElement('article');
+      item.className = 'grid-item';
+      item.dataset.theme = painting.theme || '';
+
+      item.innerHTML = `
+        <a href="detail.html?id=${painting.id}" class="grid-item__link" aria-label="${painting.title}${painting.sold ? ', sold' : ''}">
+          <div class="grid-item__image-wrap">
+            <img
+              src="${painting.image}"
+              alt="${painting.title}"
+              class="grid-item__image"
+              loading="lazy"
+              width="600"
+              height="750"
+            >
+          </div>
+          <div class="grid-item__rule" role="separator"></div>
+          <div class="grid-item__meta">
+            <span class="grid-item__title">${painting.title}</span>
+            ${painting.sold ? '<span class="grid-item__sold-dot" aria-label="Sold"></span>' : ''}
+          </div>
+        </a>
+      `;
+
+      // Hide image before appending so there's no flash at opacity:1
+      const img = item.querySelector('.grid-item__image');
+      img.style.opacity = '0';
+
+      grid.appendChild(item);
+
+      // Fade in once loaded (or immediately if already cached)
+      if (img.complete && img.naturalWidth > 0) {
+        img.style.opacity = '1';
+      } else {
+        img.addEventListener('load', function () {
+          img.style.opacity = '1';
+        }, { once: true });
+      }
+    });
+
+    // ── Filter ────────────────────────────────────────────────────────────────
+
+    const gridFilter    = document.getElementById('grid-filter');
+    const filterToggle  = document.getElementById('filter-toggle');
+    const filterOptions = document.getElementById('filter-options');
+    const activeLabel   = document.getElementById('filter-active-label');
+
+    var activeTheme = 'all';
+    var isOpen = false;
+
+    function applyFilter() {
+      // Update active-label text
+      activeLabel.textContent = activeTheme.toUpperCase();
+
+      // Highlight active option
+      document.querySelectorAll('.grid-filter__option').forEach(function (b) {
+        b.classList.toggle('is-active', b.dataset.theme === activeTheme);
+      });
+
+      // Show/hide grid items
+      document.querySelectorAll('#grid .grid-item').forEach(function (item) {
+        item.hidden = activeTheme !== 'all' && item.dataset.theme !== activeTheme;
+      });
+
+      // Sync classes: open, active-filter (closed + non-all filter)
+      gridFilter.classList.toggle('grid-filter--open', isOpen);
+      gridFilter.classList.toggle('grid-filter--active', !isOpen && activeTheme !== 'all');
+
+      filterToggle.setAttribute('aria-expanded', String(isOpen));
+      filterOptions.setAttribute('aria-hidden', String(!isOpen));
+    }
+
+    filterToggle.addEventListener('click', function () {
+      // If showing the clear-X (closed + filter set): clear filter, stay closed
+      if (!isOpen && activeTheme !== 'all') {
+        activeTheme = 'all';
+        applyFilter();
+        return;
+      }
+      isOpen = !isOpen;
+      filterToggle.setAttribute('aria-label', isOpen ? 'Close filter' : 'Filter paintings');
+      applyFilter();
+    });
+
+    document.querySelectorAll('.grid-filter__option').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        activeTheme = btn.dataset.theme;
+        // Menu stays open after selection
+        applyFilter();
+      });
+    });
+  </script>
+  <footer class="site-footer">
+    <span class="site-footer__copy">&copy; 2026</span>
+    <a href="mailto:hello@example.com" class="site-footer__link">SAY HI</a>
+  </footer>
+
+  <script src="transitions.js"></script>
+  <script src="cursor.js"></script>
+  <script>
+    // Fade in sticky bar (background + logo) once the big logo scrolls out of view
+    (function () {
+      const bar     = document.getElementById('site-sticky-bar');
+      const bigLogo = document.querySelector('.site-title');
+
+      const observer = new IntersectionObserver(function (entries) {
+        bar.classList.toggle('is-scrolled', !entries[0].isIntersecting);
+      }, { threshold: 0 });
+
+      observer.observe(bigLogo);
+    }());
+  </script>
+
+</body>
+</html>

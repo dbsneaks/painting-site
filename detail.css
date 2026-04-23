@@ -1,0 +1,605 @@
+/* ─── Detail page ────────────────────────────────────────────────────────── */
+/* Fonts: Gabarito (400, 600) — loaded in detail.html                        */
+/* Colors: #1D1F20 black · #677176 gray · #DB123E red · #0D8DE2 blue         */
+
+/* Offset for fixed header (8px pad top + 16px logo + 8px pad bottom = 32px) */
+body {
+  padding-top: 32px;
+}
+
+/* ─── Header ─────────────────────────────────────────────────────────────── */
+
+.detail-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 4px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.detail-header__title {
+  display: block;
+  line-height: 1;
+  padding-right: 80px;
+  transition: opacity 0.2s ease;
+}
+
+.detail-header__title:hover {
+  opacity: 0.6;
+}
+
+.detail-header__logo {
+  display: block;
+  height: 16px;
+  width: auto;
+}
+
+.detail-header__nav {
+  display: flex;
+  gap: 16px;
+}
+
+.detail-header__nav-link {
+  font-family: 'Gabarito', system-ui, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  color: #677176;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.detail-header__nav-link:hover {
+  color: #1D1F20;
+}
+
+/* ─── Detail wrapper ─────────────────────────────────────────────────────── */
+
+.detail {
+  width: 100%;
+}
+
+/* ─── Painting title ─────────────────────────────────────────────────────── */
+
+/*
+  Matches the About Me title: Gabarito Regular 100px, same position.
+  No overflow clipping — long titles wrap like the about page heading.
+*/
+.detail__title {
+  font-family: 'Gabarito', system-ui, sans-serif;
+  font-size: 100px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: #1D1F20;
+  margin-top: 80px;
+  margin-bottom: 80px;
+}
+
+/* ─── Single image layout ────────────────────────────────────────────────── */
+
+.detail__single-image-wrap {
+  width: 100%;
+  background: rgba(219, 219, 219, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.detail__single-image {
+  display: block;
+  width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+}
+
+.detail__single-below {
+  margin-top: 80px;
+}
+
+/* ─── Collage layout ─────────────────────────────────────────────────────── */
+
+/*
+  12-col grid. Column math at 1440px: (1440 - 2×32 - 11×32)/12 = 85.33px/col
+
+  Single:  col 1 empty | cols 2–8 image (span 7) | cols 9–12 info (span 4)
+  Viewer:  col 1 empty | col 2 thumbs | cols 3–7 image (span 5) | cols 8–11 info (span 4)
+*/
+.detail__collage-top {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: 32px;
+  align-items: start;
+}
+
+/* ── Single layout ── */
+.detail--single .detail__collage-main-wrap {
+  grid-column: 2 / span 7;
+}
+.detail--single .detail__collage-top .detail__info {
+  grid-column: 9 / span 4;
+  padding-top: 0;
+  align-self: start;
+}
+
+/* ── Viewer layout ── */
+.detail--viewer .detail__viewer-thumbs {
+  grid-column: 2 / span 1;
+  align-self: start;
+}
+.detail--viewer .detail__collage-main-wrap {
+  grid-column: 3 / span 5;
+}
+.detail--viewer .detail__collage-top .detail__info {
+  grid-column: 8 / span 4;
+  padding-top: 0;
+  align-self: start;
+}
+
+.detail__collage-main-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Secondary images collage area */
+.detail__collage-secondary {
+  display: grid;
+  grid-template-columns: 44% 56%;
+  column-gap: 16px;
+  margin-top: 24px;
+  margin-bottom: 80px;
+  align-items: end;
+}
+
+/* First secondary image: taller, right column (matches Figma 555×772) */
+.detail__sec-wrap--1 {
+  grid-column: 2;
+  grid-row: 1;
+  aspect-ratio: 555 / 772;
+}
+
+/* Second secondary image: shorter, left column (matches Figma 437×304) */
+.detail__sec-wrap--2 {
+  grid-column: 1;
+  grid-row: 1;
+  aspect-ratio: 437 / 304;
+  margin-bottom: 48px; /* stagger above the bottom of the right image */
+}
+
+/* Three or more secondary images: simple flow */
+.detail__sec-wrap--3,
+.detail__sec-wrap--4 {
+  grid-column: auto;
+  aspect-ratio: 4 / 3;
+}
+
+.detail__sec-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ─── Info block (shared) ────────────────────────────────────────────────── */
+
+.detail__info {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  max-width: 100%;
+}
+
+.detail__blurb {
+  font-family: 'Gabarito', system-ui, sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: -0.01em;
+  color: #1D1F20;
+}
+
+.detail__specs {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  list-style: none;
+}
+
+.detail__spec {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  font-family: 'Gabarito', system-ui, sans-serif;
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: -0.01em;
+  color: #1D1F20;
+}
+
+.detail__spec dt {
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.detail__spec dd {
+  font-weight: 400;
+  margin: 0;
+}
+
+/* ─── Status badges ──────────────────────────────────────────────────────── */
+
+.detail__status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  font-family: 'Gabarito', system-ui, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.detail__status--sold {
+  color: #DB123E;
+  cursor: default;
+}
+
+.detail__sold-dot {
+  display: block;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #DB123E;
+}
+
+.detail__status svg {
+  flex-shrink: 0;
+}
+
+/* ─── More module ────────────────────────────────────────────────────────── */
+
+/*
+  "MORE [CATEGORY]" section: full-width 12-col grid reusing .grid-item from styles.css.
+  Desktop: 4 items × span 3 = 12 cols (4-up).  Mobile: span 6 = 2-up.
+*/
+.detail__more {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: 32px;
+  row-gap: 40px;
+  margin-top: 144px;
+  padding-bottom: 64px;
+}
+
+.detail__more-title {
+  grid-column: 1 / -1;
+  font-family: 'Gabarito', system-ui, sans-serif;
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  color: #1D1F20;
+}
+
+.detail__more-grid {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+
+/* Reset grid-item column span — items auto-place into the 4 explicit columns */
+.detail__more-grid .grid-item { grid-column: auto; }
+
+/* Restore normal pointer — detail page has no custom cursor */
+.detail__more-grid .grid-item__link,
+.detail__more-grid .grid-item__link * {
+  cursor: pointer;
+}
+
+.detail__more-all {
+  grid-column: 1 / -1;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding-top: 16px;
+  padding-bottom: 80px;
+  font-family: 'Gabarito', system-ui, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  color: #0D8DE2;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: opacity 0.2s ease;
+}
+
+.detail__more-all:hover {
+  opacity: 0.65;
+}
+
+/* ─── Footer ─────────────────────────────────────────────────────────────── */
+
+.detail-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 8px 16px;
+}
+
+.detail-footer__copy {
+  font-family: 'Gabarito', system-ui, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1D1F20;
+}
+
+.detail-footer__link {
+  font-family: 'Gabarito', system-ui, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  color: #677176;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.2s ease;
+}
+
+.detail-footer__link:hover {
+  color: #1D1F20;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────────────── */
+
+/* Header + nav shrink at 900px — layout stays 12-col until 767px */
+@media (max-width: 900px) {
+  .detail-header {
+    padding: 8px 20px;
+  }
+
+  .detail-header__nav-link {
+    font-size: 16px;
+    white-space: nowrap;
+  }
+
+  .detail__title {
+    font-size: 72px;
+  }
+}
+
+/* Mobile stacking — matches grid breakpoint in styles.css; --site-padding-x → 16px via styles.css */
+@media (max-width: 767px) {
+  .detail__title {
+    font-size: 50px;
+  }
+
+  /* Single column: image full-width, info below */
+  .detail__collage-top {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .detail__collage-main-wrap,
+  .detail__collage-top .detail__info {
+    grid-column: 1 / -1;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .detail__collage-secondary {
+    grid-template-columns: 1fr;
+  }
+
+  .detail__sec-wrap--1,
+  .detail__sec-wrap--2 {
+    grid-column: 1;
+    grid-row: auto;
+    margin-bottom: 0;
+  }
+
+  .detail__single-below {
+    margin-top: 48px;
+  }
+
+  .detail__more-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+/* ─── Image viewer ────────────────────────────────────────────────────────── */
+
+.detail__viewer {
+  width: 100%;
+}
+
+.detail__viewer-stage {
+  position: relative;
+  width: 100%;
+  cursor: none;
+}
+
+.detail__viewer-main-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.detail__viewer-zone {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: none;
+}
+
+.detail__viewer-zone--prev { left: 0; }
+.detail__viewer-zone--next { right: 0; }
+
+.detail__viewer-cursor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 60px;
+  background: #DB123E;
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Gabarito', system-ui, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 200ms ease;
+  z-index: 2;
+  user-select: none;
+}
+
+.detail__viewer-cursor.is-visible {
+  opacity: 1;
+}
+
+/* ─── Thumbnails (vertical strip, desktop) ───────────────────────────────── */
+
+.detail__viewer-thumbs {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detail__viewer-thumb {
+  width: 100%;
+  aspect-ratio: 1;
+  flex-shrink: 0;
+  overflow: hidden;
+  border: 4px solid transparent;
+  padding: 0;
+  background: #e8e5e0;
+  cursor: pointer;
+  transition: border-color 200ms ease;
+}
+
+.detail__viewer-thumb.is-active {
+  border-color: #677176;
+}
+
+.detail__viewer-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0.4;
+  transition: opacity 200ms ease;
+}
+
+.detail__viewer-thumb.is-active img {
+  opacity: 1;
+}
+
+/* Mobile carousel / dots: hidden on desktop */
+.detail__viewer-carousel,
+.detail__viewer-dots {
+  display: none;
+}
+
+/* ─── Mobile viewer ──────────────────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .detail__viewer-stage,
+  .detail__viewer-thumbs {
+    display: none;
+  }
+
+  .detail__viewer-carousel {
+    display: flex;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 16px;
+    padding: 0 var(--site-padding-x);
+  }
+
+  .detail__viewer-carousel::-webkit-scrollbar {
+    display: none;
+  }
+
+  .detail__viewer-slide {
+    flex: 0 0 calc(100% - 2 * var(--site-padding-x));
+    scroll-snap-align: center;
+  }
+
+  .detail__viewer-slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .detail__viewer-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .detail__viewer-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #C4C8CA;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: background 200ms ease;
+  }
+
+  .detail__viewer-dot.is-active {
+    background: #1D1F20;
+  }
+}
+
+/* ─── Mobile header (phone — 4px edge insets to match Figma) ─────────────── */
+
+@media (max-width: 640px) {
+  body {
+    padding-top: 21px; /* 4px top pad + 13px logo + 4px bottom pad */
+  }
+
+  .detail-header {
+    padding: 4px;
+  }
+
+  .detail-header__title {
+    padding-right: 40px;
+  }
+
+  .detail-header__logo {
+    height: 13px;
+  }
+
+  .detail-header__nav {
+    gap: 12px;
+  }
+}

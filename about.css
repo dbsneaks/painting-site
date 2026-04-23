@@ -1,0 +1,274 @@
+/* ─── About page ─────────────────────────────────────────────────────────── */
+/* Inherits: styles.css tokens + detail-header / detail-footer from detail.css */
+
+/* Reuse the fixed-header offset */
+body {
+  padding-top: 32px;
+}
+
+/* ─── Fixed header (shared with detail) ─────────────────────────────────── */
+
+.detail-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 4px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.detail-header__title {
+  display: block;
+  line-height: 1;
+  padding-right: 80px;
+  transition: opacity 0.2s ease;
+}
+
+.detail-header__title:hover {
+  opacity: 0.6;
+}
+
+.detail-header__logo {
+  display: block;
+  height: 16px;
+  width: auto;
+}
+
+.detail-header__nav {
+  display: flex;
+  gap: 16px;
+}
+
+.detail-header__nav-link {
+  font-family: 'Gabarito', system-ui, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  color: var(--color-fg-muted);
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.detail-header__nav-link:hover {
+  color: var(--color-fg);
+}
+
+.detail-header__nav-link--active {
+  color: var(--color-fg);
+}
+
+/* ─── Page wrapper ───────────────────────────────────────────────────────── */
+
+/*
+  12-col grid matching styles.css:
+  column-gap: 32px, padding: var(--site-padding-x) (32px desktop / 16px mobile)
+
+  Desktop layout (≥768px):
+    title   → cols 1–12 (full width)
+    figure  → cols 2–11 (span 10, inset 1 col each side)
+    body    → cols 2–8  (span 7, same left edge as figure)
+    cta     → cols 9–11 (span 3, top-aligned with first line of body)
+
+  Mobile (<768px): all items span full width and stack vertically
+*/
+.about {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: 32px;
+  row-gap: 40px;
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+/* ─── Page title ─────────────────────────────────────────────────────────── */
+
+.about__title {
+  grid-column: 1 / -1;
+  font-family: 'Gabarito', system-ui, sans-serif;
+  font-size: 100px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--color-fg);
+  margin-bottom: 40px; /* adds to row-gap for extra breathing room before image */
+}
+
+/* ─── Photo + caption ────────────────────────────────────────────────────── */
+
+.about__figure {
+  grid-column: 2 / span 10;
+  display: block;
+  margin: 0;
+}
+
+.about__photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.about__caption {
+  margin-top: 8px;
+  font-family: 'Gabarito', system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--color-fg);
+  line-height: 1.4;
+}
+
+/* ─── Body text ──────────────────────────────────────────────────────────── */
+
+.about__body {
+  grid-column: 2 / span 7;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.about__body p {
+  font-family: 'Gabarito', system-ui, sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+  color: var(--color-fg);
+}
+
+.about__body a {
+  color: #0a7ac4;
+  text-decoration: underline;
+  transition: opacity 0.2s ease;
+}
+
+.about__body a:hover {
+  opacity: 0.65;
+}
+
+/* ─── CTA ────────────────────────────────────────────────────────────────── */
+
+.about__cta {
+  grid-column: 9 / span 3;
+  align-self: start;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* ─── Footer (shared pattern) ────────────────────────────────────────────── */
+
+.detail-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 8px 16px;
+}
+
+.detail-footer__copy {
+  font-family: 'Gabarito', system-ui, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-fg);
+}
+
+.detail-footer__link {
+  font-family: 'Gabarito', system-ui, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  color: var(--color-fg-muted);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.2s ease;
+}
+
+.detail-footer__link:hover {
+  color: var(--color-fg);
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .detail-header {
+    padding: 8px 20px;
+  }
+
+  .detail-header__nav-link {
+    font-size: 16px;
+  }
+
+  .about {
+    padding-top: 64px;
+    padding-bottom: 64px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .about__title {
+    font-size: 72px;
+  }
+}
+
+/* Mobile: stack all items full-width; --site-padding-x becomes 16px via styles.css */
+@media (max-width: 767px) {
+  .about {
+    row-gap: 32px;
+    padding-top: 48px;
+    padding-bottom: 48px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .about__title {
+    font-size: 50px;
+    letter-spacing: -0.05em;
+    margin-bottom: 0;
+  }
+
+  .about__figure,
+  .about__body,
+  .about__cta {
+    grid-column: 1 / -1;
+  }
+
+  .about__cta {
+    justify-content: flex-start;
+  }
+
+  .about__body p {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    padding-top: 21px;
+  }
+
+  .detail-header {
+    padding: 4px;
+  }
+
+  .detail-header__title {
+    padding-right: 40px;
+  }
+
+  .detail-header__logo {
+    height: 13px;
+  }
+
+  .detail-header__nav {
+    gap: 12px;
+  }
+}

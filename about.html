@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>if(sessionStorage.getItem('page-leaving'))document.documentElement.style.opacity='0'</script>
+  <title>About Me – Some Paintings I Painted</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="about.css">
+</head>
+<body>
+
+  <header class="detail-header">
+    <a href="index.html" class="detail-header__title" aria-label="Some Paintings I Painted">
+      <img src="images/logo/logo-1line.svg" alt="Some Paintings I Painted" class="detail-header__logo">
+    </a>
+    <nav class="detail-header__nav" aria-label="Main navigation">
+      <a href="about.html" class="detail-header__nav-link detail-header__nav-link--active">ABOUT ME</a>
+      <a href="mailto:hello@example.com" class="detail-header__nav-link">SAY HI</a>
+    </nav>
+  </header>
+
+  <main class="about page-container" id="page">
+
+    <h1 class="about__title">About Me</h1>
+
+    <figure class="about__figure">
+      <img
+        src="images/about/patricia-dana.webp"
+        alt="Patricia and me at our first student show"
+        class="about__photo"
+      >
+      <figcaption class="about__caption">
+        Left: Patricia and me. Right: my paintings hanging at our first student show.
+      </figcaption>
+    </figure>
+
+    <div class="about__body">
+      <p>
+        Back when I was renting one of my very first apartments in Los Angeles, I put out an ad
+        in the LA Times classifieds to find apartment-mates. Somehow, I was lucky enough to find
+        two renters who became lifetime friends. Patricia — pictured above in the dark striped
+        hat — was one of them. She was painting back then: big, striking artworks using a paper
+        plate for an easel, sitting in her room listening to the Cranberries. I would sit in my
+        room and draw, listening to Patricia listen to the Cranberries. (I kid. I listened to my
+        own CD's and mix tapes thank you very much.) But I never picked up paints until decades
+        later... and it was thanks to Patricia. She and her fella happened upon a gallery with
+        exquisite paintings, went in, met <a href="http://www.rebeccamolayemarts.com/" target="_blank" rel="noopener">the artist</a>,
+        and inquired about classes. I was looped in (as well as a bunch of other fantastic
+        people) and a tradition was born.
+      </p>
+      <p>
+        I've loved making art since I was a kid. I was lucky enough to have art classes in K-6
+        and then again in high school. I took a 101 in college and a 101 post-college when
+        learning to do <a href="https://www.danabrook.com/" target="_blank" rel="noopener">what I do now</a>.
+        In all of that learning, I never did any acrylic painting. Or if I did, I truly have no
+        memory of it. It was all drawing, charcoals and pastels. And this is fine. I'm so
+        thrilled to have found it at this stage in life. It is infuriating, meditative, humbling,
+        and thrilling — and I dream of continuing to paint until I'm old (well, older).
+      </p>
+      <p>
+        I don't try to make big statements or challenge philosophical notions of light and dark
+        or states-of-being. I just paint things for fun and I try to push myself with different
+        approaches, new colors and varying subject matter. Mostly I paint what makes me happy.
+      </p>
+    </div>
+
+    <div class="about__cta">
+      <a href="mailto:hello@example.com" class="btn-primary">
+        <span>Let's Connect</span>
+        <span class="btn-primary__badge" aria-hidden="true">
+          <img src="images/icons/arrow-right.svg" class="icon-white" alt="" width="16" height="16">
+        </span>
+      </a>
+    </div>
+
+  </main>
+
+  <script src="transitions.js"></script>
+
+  <footer class="detail-footer">
+    <span class="detail-footer__copy">&copy; 2026</span>
+    <a href="mailto:hello@example.com" class="detail-footer__link">SAY HI</a>
+  </footer>
+
+</body>
+</html>
