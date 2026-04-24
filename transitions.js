@@ -1,8 +1,31 @@
 (function () {
   'use strict';
 
-  var DURATION = 500;
+  var DURATION = 250;
   var FLAG = 'page-leaving';
+
+  // ── Fade in on bfcache back/forward restore ─────────────────────────────
+  // When the browser restores a page from bfcache the JS doesn't re-run,
+  // but the DOM is frozen with opacity:0 (set during the exit fade) while
+  // sessionStorage no longer has the flag (the destination page cleared it).
+  // pageshow with persisted:true fires on every bfcache restore — run the
+  // same fade-in as a normal forward navigation.
+  window.addEventListener('pageshow', function (e) {
+    if (!e.persisted) return;
+    document.documentElement.style.transition = '';
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        document.documentElement.style.transition = 'opacity ' + DURATION + 'ms ease';
+        document.documentElement.style.opacity = '1';
+      });
+    });
+    document.documentElement.addEventListener('transitionend', function cleanup(evt) {
+      if (evt.propertyName !== 'opacity') return;
+      document.documentElement.style.transition = '';
+      document.documentElement.style.opacity   = '';
+      document.documentElement.removeEventListener('transitionend', cleanup);
+    });
+  });
 
   // ── Fade in on new page arrival ─────────────────────────────────────────
   // The <head> script set opacity:0 on <html> if the flag was present,

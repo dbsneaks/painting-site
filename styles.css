@@ -197,11 +197,12 @@ a {
 }
 
 .grid-filter--open .grid-filter__options {
-  max-height: 60px;
+  max-height: 200px;
 }
 
 .grid-filter__options-inner {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 16px;
   padding-top: 16px;
@@ -329,7 +330,7 @@ a {
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  padding: 8px var(--item-pad) 0;
+  padding: 8px var(--item-pad) 0 0;
 }
 
 .grid-item__title {
@@ -396,6 +397,7 @@ a {
   .grid-item__rule {
     margin-top: 24px;
   }
+
 }
 
 /* ─── Custom Cursor ──────────────────────────────────────────────────────── */

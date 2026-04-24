@@ -7,6 +7,11 @@ body {
   padding-top: 32px;
 }
 
+/* Prevent carousel negative-margin overflow from inflating page scroll width */
+.page-container {
+  overflow-x: hidden;
+}
+
 /* ─── Header ─────────────────────────────────────────────────────────────── */
 
 .detail-header {
@@ -197,7 +202,10 @@ body {
   display: flex;
   flex-direction: column;
   gap: 40px;
+  min-width: 0;
   max-width: 100%;
+  height: auto;
+  overflow: visible;
 }
 
 .detail__blurb {
@@ -207,6 +215,10 @@ body {
   line-height: 28px;
   letter-spacing: -0.01em;
   color: #1D1F20;
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
 
 .detail__specs {
@@ -257,6 +269,15 @@ body {
   cursor: default;
 }
 
+/* When the available CTA carries .btn-primary, restore btn-primary's values
+   (higher specificity wins over .detail__status and .btn-primary separately) */
+.detail__status.btn-primary {
+  gap: 12px;
+  font-size: 16px;
+  letter-spacing: -0.02em;
+  line-height: inherit;
+}
+
 .detail__sold-dot {
   display: block;
   flex-shrink: 0;
@@ -299,7 +320,8 @@ body {
   grid-column: 1 / -1;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 32px;
+  column-gap: 32px;
+  row-gap: 96px;
 }
 
 /* Reset grid-item column span — items auto-place into the 4 explicit columns */
@@ -402,6 +424,11 @@ body {
     max-width: 100%;
   }
 
+  .detail__collage-top .detail__info {
+    align-self: auto;
+    height: auto;
+  }
+
   .detail__collage-secondary {
     grid-template-columns: 1fr;
   }
@@ -419,7 +446,8 @@ body {
 
   .detail__more-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
+    column-gap: 16px;
+    row-gap: 40px;
   }
 
   .detail__more {
@@ -544,6 +572,11 @@ body {
     max-width: 100%;
   }
 
+  .detail--viewer .detail__collage-top .detail__info {
+    align-self: auto;
+    height: auto;
+  }
+
   .detail__viewer-stage,
   .detail__viewer-thumbs {
     display: none;
@@ -557,7 +590,7 @@ body {
     scrollbar-width: none;
     gap: 16px;
     padding: 0 var(--site-padding-x);
-    /* Break out of page-container padding so carousel spans full viewport */
+    /* Symmetric negative margins = exact viewport width, zero net page overflow */
     margin-left: calc(-1 * var(--site-padding-x));
     margin-right: calc(-1 * var(--site-padding-x));
   }

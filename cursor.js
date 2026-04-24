@@ -74,8 +74,10 @@
     vy *= 0.84;
 
     // Smooth opacity — only animate once cursor is ready post-load
+    // Asymmetric: slow fade-in (0.14), fast fade-out (0.28)
     const targetOpacity = (isReady && isVisible) ? 1 : 0;
-    opacity += (targetOpacity - opacity) * 0.14;
+    const lerpRate = targetOpacity > opacity ? 0.14 : 0.28;
+    opacity += (targetOpacity - opacity) * lerpRate;
 
     // Position wrapper at cursor
     wrapper.style.transform = `translate(${curX}px, ${curY}px)`;
