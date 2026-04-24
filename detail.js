@@ -21,6 +21,7 @@
 
   var main = document.getElementById('detail-main');
   main.innerHTML = buildViewer(painting);
+  main.insertAdjacentHTML('afterend', buildFooter());
   initViewer();
 
   /* ── SVG helpers ────────────────────────────────────────────────────────── */
@@ -81,7 +82,7 @@
           '<span class="detail__sold-dot" aria-hidden="true"></span>' +
           '<span>SOLD</span>' +
         '</div>'
-      : '<a href="mailto:hello@example.com?subject=' + subject + '" class="detail__status detail__status--available btn-primary">' +
+      : '<a href="mailto:danakbrook@gmail.com?subject=' + subject + '" class="detail__status detail__status--available btn-primary">' +
           '<span>INTERESTED? EMAIL ME</span>' +
           '<span class="btn-primary__badge" aria-hidden="true">' + svgArrowBadge() + '</span>' +
         '</a>';
@@ -102,7 +103,7 @@
   function buildFooter() {
     return '<footer class="site-footer">' +
         '<span class="site-footer__copy">\u00A9 2026</span>' +
-        '<a href="mailto:hello@example.com" class="site-footer__link">SAY HI</a>' +
+        '<a href="mailto:danakbrook@gmail.com" class="site-footer__link">SAY HI</a>' +
       '</footer>';
   }
 
@@ -120,8 +121,7 @@
           buildInfoBlock(p) +
         '</div>' +
         buildMoreModule(p) +
-      '</section>' +
-      buildFooter();
+      '</section>';
   }
 
   /* ── Multi-image viewer layout ──────────────────────────────────────────── */
@@ -173,8 +173,7 @@
         buildInfoBlock(p) +
       '</div>' +
       buildMoreModule(p) +
-      '</section>' +
-      buildFooter();
+      '</section>';
   }
 
   /* ── Viewer JS ──────────────────────────────────────────────────────────── */

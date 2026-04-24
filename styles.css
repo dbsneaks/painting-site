@@ -266,6 +266,7 @@ a {
 @media (max-width: 767px) {
   :root { --site-padding-x: 16px; }
   .grid-item { grid-column: span 6; }
+  .nav-about-me { display: none; }
 }
 
 .grid-item::before {
@@ -431,7 +432,8 @@ a {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 0 4px 16px;
+  margin-left: 4px;
+  padding-bottom: 16px;
 }
 
 .site-footer__copy {

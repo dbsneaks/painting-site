@@ -421,6 +421,10 @@ body {
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
   }
+
+  .detail__more {
+    margin-top: 80px;
+  }
 }
 
 /* ─── Image viewer ────────────────────────────────────────────────────────── */
@@ -527,6 +531,19 @@ body {
 /* ─── Mobile viewer ──────────────────────────────────────────────────────── */
 
 @media (max-width: 900px) {
+  /* Collapse to single column when carousel is active */
+  .detail--viewer .detail__collage-top {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .detail--viewer .detail__collage-main-wrap,
+  .detail--viewer .detail__collage-top .detail__info {
+    grid-column: 1 / -1;
+    width: 100%;
+    max-width: 100%;
+  }
+
   .detail__viewer-stage,
   .detail__viewer-thumbs {
     display: none;
@@ -540,6 +557,9 @@ body {
     scrollbar-width: none;
     gap: 16px;
     padding: 0 var(--site-padding-x);
+    /* Break out of page-container padding so carousel spans full viewport */
+    margin-left: calc(-1 * var(--site-padding-x));
+    margin-right: calc(-1 * var(--site-padding-x));
   }
 
   .detail__viewer-carousel::-webkit-scrollbar {
@@ -547,7 +567,7 @@ body {
   }
 
   .detail__viewer-slide {
-    flex: 0 0 calc(100% - 2 * var(--site-padding-x));
+    flex: 0 0 calc(100vw - 2 * var(--site-padding-x));
     scroll-snap-align: center;
   }
 
@@ -559,7 +579,7 @@ body {
 
   .detail__viewer-dots {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 8px;
     margin-top: 16px;
   }
