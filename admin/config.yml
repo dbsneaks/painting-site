@@ -1,7 +1,5 @@
 backend:
-  name: github
-  repo: dbsneaks/painting-site
-  branch: main
+  name: test-repo
 
 media_folder: "images/paintings"
 public_folder: "/images/paintings"
