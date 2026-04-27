@@ -3,7 +3,7 @@ backend:
   repo: dbsneaks/painting-site
   branch: main
   base_url: https://somepaintingsipainted.com
-  auth_endpoint: api/auth
+  auth_endpoint: /api/auth
 
 media_folder: "images/paintings"
 public_folder: "/images/paintings"
