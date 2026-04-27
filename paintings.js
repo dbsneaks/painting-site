@@ -5,7 +5,7 @@ const paintings = [
     theme: "flowers",
     image: "images/paintings/buttery-bouquet-clean.webp",
     images: ["images/paintings/buttery-bouquet-clean.webp", "images/paintings/buttery-bouquet.webp"],
-    sold: false,
+    sold: true,
     size: "9 × 12 in.",
     medium: "Acrylic on stretched canvas",
     price: "$300.00",
