@@ -2,7 +2,13 @@ export default async function handler(req, res) {
   const { code } = req.query;
 
   if (!code) {
-    return res.status(400).send('Missing code parameter');
+    const callbackUrl = `${process.env.BASE_URL || 'https://somepaintingsipainted.com'}/api/auth`;
+    const params = new URLSearchParams({
+      client_id: process.env.OAUTH_CLIENT_ID,
+      redirect_uri: callbackUrl,
+      scope: 'repo'
+    });
+    return res.redirect(`https://github.com/login/oauth/authorize?${params}`);
   }
 
   try {
