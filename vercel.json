@@ -8,5 +8,13 @@
   "rewrites": [
     { "source": "/admin", "destination": "/admin/index.html" },
     { "source": "/admin/", "destination": "/admin/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*\\.yml)",
+      "headers": [
+        { "key": "Content-Type", "value": "text/yaml; charset=utf-8" }
+      ]
+    }
   ]
 }
