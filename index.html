@@ -79,9 +79,17 @@
     <span class="cursor__circle">VIEW</span>
   </div>
 
-  <script src="paintings.js"></script>
   <script>
-    const grid = document.getElementById('grid');
+    (async function () {
+      let paintings = [];
+      try {
+        const response = await fetch('paintings.json');
+        paintings = await response.json();
+      } catch (err) {
+        console.error('Failed to load paintings:', err);
+      }
+
+      const grid = document.getElementById('grid');
 
     paintings.forEach((painting) => {
       const item = document.createElement('article');
@@ -175,6 +183,7 @@
         applyFilter();
       });
     });
+    })();
   </script>
   <footer class="site-footer">
     <span class="site-footer__copy">&copy; 2026</span>

@@ -38,8 +38,18 @@
 
   <main id="detail-main" class="page-container"></main>
 
-  <script src="paintings.js"></script>
-  <script src="detail.js"></script>
+  <script>
+    let paintings = [];
+    fetch('paintings.json')
+      .then(r => r.json())
+      .then(function (data) {
+        paintings = data;
+        var s = document.createElement('script');
+        s.src = 'detail.js';
+        document.body.appendChild(s);
+      })
+      .catch(function (err) { console.error('Failed to load paintings:', err); });
+  </script>
   <script src="transitions.js"></script>
 
 

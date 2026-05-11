@@ -1,5 +1,9 @@
 backend:
-  name: test-repo
+  name: github
+  repo: dbsneaks/painting-site
+  branch: main
+  base_url: https://painting-site.vercel.app
+  auth_endpoint: api/auth
 
 media_folder: "images/paintings"
 public_folder: "/images/paintings"
@@ -10,13 +14,13 @@ collections:
     files:
       - name: "paintings-data"
         label: "Paintings Database"
-        file: "paintings.js"
+        file: "paintings.json"
         fields:
           - label: "Paintings"
             name: "paintings"
             widget: "list"
             fields:
-              - {label: "ID", name: "id", widget: "string"}
+              - {label: "ID", name: "id", widget: "number"}
               - {label: "Title", name: "title", widget: "string"}
               - {label: "Image", name: "image", widget: "image"}
               - label: "Additional Images"
@@ -24,11 +28,12 @@ collections:
                 widget: "list"
                 field: {label: "Image", name: "image", widget: "image"}
               - {label: "Sold", name: "sold", widget: "boolean", default: false}
+              - {label: "Blurb", name: "blurb", widget: "text", required: false}
               - {label: "Description", name: "description", widget: "text"}
               - {label: "Size", name: "size", widget: "string"}
               - {label: "Medium", name: "medium", widget: "string"}
               - {label: "Price", name: "price", widget: "string", required: false}
-              - label: "Category"
-                name: "category"
+              - label: "Theme"
+                name: "theme"
                 widget: "select"
-                options: ["flowers", "animals", "food", "people", "still-life"]
+                options: ["flowers", "animals", "food", "people", "structures", "water"]
