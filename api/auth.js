@@ -31,13 +31,15 @@ export default async function handler(req, res) {
       return res.status(401).json({ error: data.error });
     }
 
+    const tokenData = JSON.stringify(data);
+
     res.send(`
       <html>
         <body>
           <script>
             if (window.opener) {
               window.opener.postMessage(
-                'authorization:github:success:' + JSON.stringify(data),
+                'authorization:github:success:${tokenData}',
                 window.location.origin
               );
             }
