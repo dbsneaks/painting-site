@@ -37,7 +37,7 @@ export default async function handler(req, res) {
           <script>
             if (window.opener) {
               window.opener.postMessage(
-                'authorization:github:success:${JSON.stringify(data)}',
+                'authorization:github:success:' + JSON.stringify(data),
                 window.location.origin
               );
             }
