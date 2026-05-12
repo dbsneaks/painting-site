@@ -1,8 +1,12 @@
 export default async function handler(req, res) {
   const { code } = req.query;
 
+  console.log('[auth] OAUTH_CLIENT_ID set:', !!process.env.OAUTH_CLIENT_ID);
+  console.log('[auth] OAUTH_CLIENT_SECRET set:', !!process.env.OAUTH_CLIENT_SECRET);
+
   if (!code) {
     const callbackUrl = `${process.env.BASE_URL || 'https://somepaintingsipainted.com'}/api/auth`;
+    console.log('[auth] redirect_uri:', callbackUrl);
     const params = new URLSearchParams({
       client_id: process.env.OAUTH_CLIENT_ID,
       redirect_uri: callbackUrl,
@@ -28,6 +32,7 @@ export default async function handler(req, res) {
     const data = await response.json();
 
     if (data.error) {
+      console.log('[auth] GitHub token error:', data.error, data.error_description || '');
       return res.status(401).json({ error: data.error });
     }
 
