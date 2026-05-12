@@ -43,7 +43,7 @@ export default async function handler(req, res) {
                 window.location.origin
               );
             }
-            window.close();
+            // window.close();
           </script>
         </body>
       </html>
