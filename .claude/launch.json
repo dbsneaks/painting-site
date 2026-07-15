@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "painting-site",
-      "runtimeExecutable": "/Applications/Adobe Photoshop 2025/Adobe Photoshop 2025.app/Contents/MacOS/node",
-      "runtimeArgs": ["/Users/danabrook/Documents/painting-site/serve.js"],
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["/Users/danabrook/dev/painting-site/serve.js"],
       "port": 3456
     }
   ]
