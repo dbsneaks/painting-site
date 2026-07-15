@@ -428,6 +428,19 @@ a {
   transform-origin: 50% 50%;
 }
 
+/* Touch/narrow viewports have no hover cursor to follow — the circle would
+   otherwise stick where it was last positioned. */
+@media (max-width: 728px) {
+  .cursor {
+    display: none;
+  }
+
+  .grid-item__link,
+  .grid-item__link * {
+    cursor: pointer;
+  }
+}
+
 /* ─── Site Footer ────────────────────────────────────────────────────────── */
 
 .site-footer {
