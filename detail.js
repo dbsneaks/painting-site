@@ -58,7 +58,7 @@
           '<div class="grid-item__rule" role="separator"></div>' +
           '<div class="grid-item__meta">' +
             '<span class="grid-item__title">' + other.title + '</span>' +
-            (other.sold ? '<span class="grid-item__sold-dot" aria-label="Sold"></span>' : '') +
+            (other.sold ? '<span class="grid-item__sold"><span class="grid-item__sold-label">SOLD</span><span class="grid-item__sold-dot" aria-hidden="true"></span></span>' : '') +
           '</div>' +
         '</a>' +
       '</article>';
@@ -92,7 +92,8 @@
         '<dl class="detail__specs">' +
           '<div class="detail__spec"><dt>SIZE:</dt><dd>' + p.size + '</dd></div>' +
           '<div class="detail__spec"><dt>MEDIUM:</dt><dd>' + p.medium + '</dd></div>' +
-          '<div class="detail__spec"><dt>PRICE:</dt><dd>' + price + '</dd></div>' +
+          // Price kept in data but hidden from the public. Remove `hidden` to show it again.
+          '<div class="detail__spec" hidden><dt>PRICE:</dt><dd>' + price + '</dd></div>' +
         '</dl>' +
         status +
       '</div>';

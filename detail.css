@@ -228,6 +228,10 @@ body {
   list-style: none;
 }
 
+.detail__spec[hidden] {
+  display: none;
+}
+
 .detail__spec {
   display: flex;
   gap: 8px;
